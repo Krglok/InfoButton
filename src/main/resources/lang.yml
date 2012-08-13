@@ -1,0 +1,14 @@
+# Language File: en_UK
+plugin:
+    enabled: "Plugin sucessfully loaded."
+    disabled: "Plugin has been disabled."
+exceptions:
+    noPermission: "&cYou don't have permission."
+    numExpected: "&cNumber expected, string received instead."
+    errorOccurred: "&cAn error has occurred. See console."
+    notEnoughArgs: "&cNot enough Arguments!"
+    invalidPage: "&cInvalid Page number."
+    notInfoButton: "&cTarget block is not an InfoButton."
+commands:
+  addedButton: "&7InfoButton has been created at your target block."
+  addPlayerCommand: "&7Added command '&a%C&7' to your target block."
