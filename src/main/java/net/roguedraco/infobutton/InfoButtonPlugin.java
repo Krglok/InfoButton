@@ -108,6 +108,7 @@ public class InfoButtonPlugin extends JavaPlugin {
 	public void onDisable() {
 		RDPlayers.saveAll();
 		InfoButtons.saveButtons();
+		lang.saveLanguage();
 
 		log(Lang.get("plugin.disabled"));
 	}

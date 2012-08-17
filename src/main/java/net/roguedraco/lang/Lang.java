@@ -24,7 +24,7 @@ public class Lang {
 	
 	public void setupLanguage() {
 		if (langFile == null) {
-			langFile = new File(plugin.getDataFolder(), "lang.yml");
+			langFile = new File("plugins/InfoButton/", "lang.yml");
 		}
 		lang = YamlConfiguration.loadConfiguration(langFile);
 
