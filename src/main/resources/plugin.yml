@@ -1,12 +1,12 @@
-name: InfoButton
-main: net.roguedraco.jumpports.InfoButtonPlugin
-version: 2.0
+name: {$project.name}
+main: net.roguedraco.infobutton.InfoButtonPlugin
+version: {$project.version}
 author: TruDan
 depends: [Vault]
-dev-url: http://dev.bukkit.org/server-mods/infobutton/
+dev-url: {$project.url}
 commands:
     ib:
-      usage: /jp
+      usage: /ip
       description: General InfoButton Commands
     infobutton:
       usage: /infobutton

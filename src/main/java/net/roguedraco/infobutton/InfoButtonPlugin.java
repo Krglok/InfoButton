@@ -67,7 +67,7 @@ public class InfoButtonPlugin extends JavaPlugin {
 			return;
 		}
 
-		// Create ports folder
+		// Create buttons folder
 		File theDir = new File(this.getDataFolder() + "/buttons/"
 				+ File.separatorChar);
 
@@ -75,7 +75,7 @@ public class InfoButtonPlugin extends JavaPlugin {
 		if (!theDir.exists()) {
 			boolean result = theDir.mkdir();
 			if (result) {
-				log("Ports folder created.");
+				log("Buttons folder created.");
 			}
 		}
 
@@ -100,12 +100,14 @@ public class InfoButtonPlugin extends JavaPlugin {
 		Listener RDEvents = new RDEvents();
 		pm.registerEvents(RDEvents, this);
 		RDPlayers.loadAll();
+		InfoButtons.loadButtons();
 
 		log(Lang.get("plugin.enabled"));
 	}
 
 	public void onDisable() {
 		RDPlayers.saveAll();
+		InfoButtons.saveButtons();
 
 		lang.saveLanguage();
 		log(Lang.get("plugin.disabled"));
