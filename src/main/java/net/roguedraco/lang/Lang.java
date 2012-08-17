@@ -55,7 +55,10 @@ public class Lang {
 	}
 	
 	public static String parseColours(String str) {
-		Pattern color_codes = Pattern.compile("&([0-9A-Fa-fkKLlOoMmNn])");
+		if(str == null) {
+			str = "";
+		}
+		Pattern color_codes = Pattern.compile("&([0-9A-Fa-fKkLlOoMmNn])");
 		Matcher find_colors = color_codes.matcher(str);
 		while (find_colors.find()) {
 		 str = find_colors.replaceFirst(new StringBuilder().append(ChatColor.COLOR_CHAR).append(find_colors.group(1)).toString());
