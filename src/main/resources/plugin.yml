@@ -1,12 +1,12 @@
-name: {$project.name}
+name: ${project.name}
 main: net.roguedraco.infobutton.InfoButtonPlugin
-version: {$project.version}
+version: ${project.version}
 author: TruDan
 depends: [Vault]
-dev-url: {$project.url}
+dev-url: ${project.url}
 commands:
     ib:
-      usage: /ip
+      usage: /ib
       description: General InfoButton Commands
     infobutton:
       usage: /infobutton
