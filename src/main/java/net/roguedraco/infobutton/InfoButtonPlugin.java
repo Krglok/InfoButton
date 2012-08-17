@@ -188,7 +188,7 @@ public class InfoButtonPlugin extends JavaPlugin {
 				&& level == Level.INFO) {
 			ConsoleCommandSender console = Bukkit.getServer()
 					.getConsoleSender();
-			console.sendMessage("[" + ChatColor.LIGHT_PURPLE + pluginName
+			console.sendMessage("[" + ChatColor.DARK_RED + pluginName
 					+ " v" + pluginVersion + ChatColor.GRAY + "] " + message);
 		} else {
 			InfoButtonPlugin.logger.log(level, "[" + pluginName + " v"
@@ -201,7 +201,7 @@ public class InfoButtonPlugin extends JavaPlugin {
 			if (plugin.getConfig().getBoolean("useFancyConsole") == true) {
 				ConsoleCommandSender console = Bukkit.getServer()
 						.getConsoleSender();
-				console.sendMessage("[" + ChatColor.LIGHT_PURPLE + pluginName
+				console.sendMessage("[" + ChatColor.DARK_RED + pluginName
 						+ " v" + pluginVersion + " Debug" + ChatColor.GRAY
 						+ "] " + message);
 			} else {

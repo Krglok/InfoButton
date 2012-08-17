@@ -90,7 +90,7 @@ public class InfoButtons {
 			
 			Integer x = 0;
 			for(ButtonAction action : button.getActions()) {
-				conf.set(world+"."+worldKey+".actions."+x+".type", action.getType());
+				conf.set(world+"."+worldKey+".actions."+x+".type", action.getType().getType());
 				conf.set(world+"."+worldKey+".actions."+x+".val", action.getValue());				
 				x++;
 			}
