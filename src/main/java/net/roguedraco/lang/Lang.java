@@ -23,9 +23,7 @@ public class Lang {
 	}
 	
 	public void setupLanguage() {
-		if (langFile == null) {
-			langFile = new File("plugins/InfoButton/", "lang.yml");
-		}
+		langFile = new File("plugins/InfoButton/", "lang.yml");
 		lang = YamlConfiguration.loadConfiguration(langFile);
 
 		// Look for defaults in the jar
