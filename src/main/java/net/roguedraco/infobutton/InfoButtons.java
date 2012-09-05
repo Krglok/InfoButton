@@ -78,7 +78,7 @@ public class InfoButtons {
 	}
 
 	public static void addButton(InfoButton button) {
-		infoButtons.add(button);
+		infoButtons.add(button); 
 	}
 
 	public static void saveButtons() {
