@@ -71,6 +71,25 @@ public class InfoButton {
 	}
 
 	public void execute(Player player) {
+		if(enabled == false) {
+			player.sendMessage(Lang.get("exceptions.notEnabled"));
+			return;
+		}
+		if(permission != null && permission != "") {
+			if(!InfoButtonPlugin.permission.playerHas(player, permission)) {
+				player.sendMessage(Lang.get("exceptions.noPermission"));
+				return;
+			}
+		}
+		if (price > 0) {
+			if(InfoButtonPlugin.economy.getBalance(player.getName()) >= price) {
+				InfoButtonPlugin.economy.withdrawPlayer(player.getName(), price);
+			}
+			else {
+				player.sendMessage(Lang.get("exceptions.notEnoughFunds"));
+				return;
+			}
+		}
 		for (ButtonAction action : actions) {
 			ActionType type = action.getType();
 			if (type == ActionType.CONSOLE_COMMAND) {
@@ -84,7 +103,8 @@ public class InfoButton {
 			if (type == ActionType.FILE_READ) {
 				try {
 					FileInputStream fstream = new FileInputStream(
-							InfoButtonPlugin.getPlugin().getDataFolder() + "/files/"+action.getValue()+".txt");
+							InfoButtonPlugin.getPlugin().getDataFolder()
+									+ "/files/" + action.getValue() + ".txt");
 					DataInputStream in = new DataInputStream(fstream);
 					BufferedReader br = new BufferedReader(
 							new InputStreamReader(in));

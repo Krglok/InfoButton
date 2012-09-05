@@ -154,7 +154,7 @@ public class InfoButtons {
 						String actionId = actions.next();
 						ActionType actionType = ActionType
 								.getType(actionsSection.getString(actionId
-										+ ".type", "PLAYER_COMMAND"));
+										+ ".type"));
 						String actionValue = actionsSection.getString(actionId
 								+ ".val");
 						ButtonAction action = new ButtonAction(actionType,
@@ -162,6 +162,7 @@ public class InfoButtons {
 						ib.addAction(action);
 					}
 				}
+				addButton(ib);
 			}
 		}
 

@@ -30,8 +30,36 @@ public class InfoButtonCommands {
 			sender.sendMessage(Lang.get("commands.wrongMaterial"));
 		}
 	}
+	
+	@Command(aliases = { "enable", "en", "on" }, usage = "", flags = "", desc = "Enable a button", help = "Enables the InfoButton you are looking at.", min = 0, max = 0)
+	@CommandPermissions("infobutton.admin.enable")
+	public static void enable(CommandContext args, CommandSender sender)
+			throws CommandException {
+		Player player = (Player) sender;
+		Block block = player.getTargetBlock(null, 200);
+		if (InfoButtons.isButton(block)) {
+			InfoButtons.getButton(block).setEnabled(true);
+			sender.sendMessage(Lang.get("commands.enabled"));
+		} else {
+			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+		}
+	}
+	
+	@Command(aliases = { "disable", "dis", "off" }, usage = "", flags = "", desc = "Disable a button", help = "Disables the InfoButton you are looking at.", min = 0, max = 0)
+	@CommandPermissions("infobutton.admin.disable")
+	public static void disable(CommandContext args, CommandSender sender)
+			throws CommandException {
+		Player player = (Player) sender;
+		Block block = player.getTargetBlock(null, 200);
+		if (InfoButtons.isButton(block)) {
+			InfoButtons.getButton(block).setEnabled(false);
+			sender.sendMessage(Lang.get("commands.disabled"));
+		} else {
+			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+		}
+	}
 
-	@Command(aliases = { "addcommand", "pcommand", "apc" }, usage = "", flags = "", desc = "Add a player command", help = "Adds a player command to the InfoButton you are looking at.", min = 0, max = -1)
+	@Command(aliases = { "addcommand", "pcommand", "apc" }, usage = "", flags = "", desc = "Add a player command", help = "Adds a player command to the InfoButton you are looking at.", min = 1, max = -1)
 	@CommandPermissions("infobutton.admin.addcommand")
 	public static void addcommand(CommandContext args, CommandSender sender)
 			throws CommandException {
@@ -46,7 +74,7 @@ public class InfoButtonCommands {
 		}
 	}
 
-	@Command(aliases = { "addconsolecommand", "ccommand", "acc" }, usage = "", flags = "", desc = "Add a console command", help = "Adds a console command to the InfoButton you are looking at. (Hint: %player% is the player who pressed the button)", min = 0, max = -1)
+	@Command(aliases = { "addconsolecommand", "ccommand", "acc" }, usage = "", flags = "", desc = "Add a console command", help = "Adds a console command to the InfoButton you are looking at. (Hint: %player% is the player who pressed the button)", min = 1, max = -1)
 	@CommandPermissions("infobutton.admin.addccommand")
 	public static void addconsolecommand(CommandContext args,
 			CommandSender sender) throws CommandException {
@@ -61,7 +89,7 @@ public class InfoButtonCommands {
 		}
 	}
 
-	@Command(aliases = { "addfile", "file", "af" }, usage = "", flags = "", desc = "Add a console command", help = "Adds a console command to the InfoButton you are looking at. (Hint: %player% is the player who pressed the button)", min = 0, max = -1)
+	@Command(aliases = { "addfile", "file", "af" }, usage = "", flags = "", desc = "Add a console command", help = "Adds a console command to the InfoButton you are looking at. (Hint: %player% is the player who pressed the button)", min = 1, max = -1)
 	@CommandPermissions("infobutton.admin.addfile")
 	public static void addfile(CommandContext args, CommandSender sender)
 			throws CommandException {
@@ -76,7 +104,7 @@ public class InfoButtonCommands {
 		}
 	}
 	
-	@Command(aliases = { "setperm", "perm", "p" }, usage = "", flags = "", desc = "Set the permission for the button", help = "Sets the required permission node to use this button.", min = 0, max = 1)
+	@Command(aliases = { "setperm", "perm", "p" }, usage = "", flags = "", desc = "Set the permission for the button", help = "Sets the required permission node to use this button.", min = 1, max = 1)
 	@CommandPermissions("infobutton.admin.setperm")
 	public static void setperm(CommandContext args, CommandSender sender)
 			throws CommandException {
@@ -85,6 +113,20 @@ public class InfoButtonCommands {
 		if (InfoButtons.isButton(block)) {
 			InfoButtons.getButton(block).setPermission(args.getString(0));
 			sender.sendMessage(Lang.get("commands.setPerm").replaceAll("%P",args.getString(0)));
+		} else {
+			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+		}
+	}
+	
+	@Command(aliases = { "setprice", "price", "pr" }, usage = "", flags = "", desc = "Set the price for the button", help = "Sets the required price to use this button.", min = 1, max = 1)
+	@CommandPermissions("infobutton.admin.setprice")
+	public static void setprice(CommandContext args, CommandSender sender)
+			throws CommandException {
+		Player player = (Player) sender;
+		Block block = player.getTargetBlock(null, 200);
+		if (InfoButtons.isButton(block)) {
+			InfoButtons.getButton(block).setPrice(args.getDouble(0));
+			sender.sendMessage(Lang.get("commands.setPrice").replaceAll("%P",args.getString(0)));
 		} else {
 			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
 		}

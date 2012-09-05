@@ -13,12 +13,12 @@ public enum ActionType {
 	}
 	
 	public static ActionType getType(String key) {
-		if(key == "PLAYER_COMMAND")
-			return ActionType.PLAYER_COMMAND;
-		if(key == "CONSOLE_COMMAND")
-			return ActionType.CONSOLE_COMMAND;
-		if(key == "FILE_READ")
-			return ActionType.FILE_READ;
+		for(ActionType action : values()) {
+			if(action.getType().equalsIgnoreCase(key)) {
+				return action;
+			}
+		}
+		
 		return ActionType.PLAYER_COMMAND;
 	}
 

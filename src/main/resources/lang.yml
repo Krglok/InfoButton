@@ -10,6 +10,8 @@ exceptions:
     invalidPage: "&cInvalid Page number."
     notInfoButton: "&cTarget block is not an InfoButton."
     invalidFile: "&cThe file could not be read."
+    notEnoughFunds: "&cYou do not have enough funds to use this button."
+    notEnabled: "&cButton not active."
 commands:
     addedButton: "&7InfoButton has been created at your target block."
     addPlayerCommand: "&7Added command '&a%C&7' to your target block."
@@ -17,3 +19,6 @@ commands:
     addFile: "&7Added file '&a%F&7' to your target block."
     setPerm: "&7Set permission to '&a%P&7' for your target block."
     wrongMaterial: "&cThis block is not aloud to be an InfoButton."
+    enabled: "&7Button enabled."
+    disabled: "&7Button disabled."
+    setPrice: "&7Price set to &a%P&7."
