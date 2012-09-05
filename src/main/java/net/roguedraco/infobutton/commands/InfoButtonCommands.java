@@ -3,7 +3,7 @@ package net.roguedraco.infobutton.commands;
 import net.roguedraco.infobutton.ActionType;
 import net.roguedraco.infobutton.InfoButton;
 import net.roguedraco.infobutton.InfoButtons;
-import net.roguedraco.lang.Lang;
+import net.roguedraco.infobutton.lang.Lang;
 
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -21,9 +21,14 @@ public class InfoButtonCommands {
 			throws CommandException {
 		Player player = (Player) sender;
 		Block block = player.getTargetBlock(null, 200);
-		InfoButton ib = new InfoButton(block);
-		InfoButtons.addButton(ib);
-		sender.sendMessage(Lang.get("commands.addedButton"));
+		if(InfoButtons.isEligable(block)) {
+			InfoButton ib = new InfoButton(block);
+			InfoButtons.addButton(ib);
+			sender.sendMessage(Lang.get("commands.addedButton"));
+		}
+		else {
+			sender.sendMessage(Lang.get("commands.wrongMaterial"));
+		}
 	}
 
 	@Command(aliases = { "addcommand", "pcommand", "apc" }, usage = "", flags = "", desc = "Add a player command", help = "Adds a player command to the InfoButton you are looking at.", min = 0, max = -1)

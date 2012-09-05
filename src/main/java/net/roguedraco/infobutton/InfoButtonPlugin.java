@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import net.roguedraco.infobutton.commands.GeneralCommands;
-import net.roguedraco.lang.Lang;
-import net.roguedraco.player.RDEvents;
-import net.roguedraco.player.RDPlayers;
+import net.roguedraco.infobutton.lang.Lang;
+import net.roguedraco.infobutton.player.RDEvents;
+import net.roguedraco.infobutton.player.RDPlayers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -67,27 +67,15 @@ public class InfoButtonPlugin extends JavaPlugin {
 			return;
 		}
 
-		// Create buttons folder
-		File theDir = new File(this.getDataFolder() + "/buttons/"
+		// Create files folder
+		File theDir = new File(this.getDataFolder() + "/files/"
 				+ File.separatorChar);
 
 		// if the directory does not exist, create it
 		if (!theDir.exists()) {
 			boolean result = theDir.mkdir();
 			if (result) {
-				log("Buttons folder created.");
-			}
-		}
-
-		// Create players folder
-		theDir = new File(this.getDataFolder() + "/players/"
-				+ File.separatorChar);
-
-		// if the directory does not exist, create it
-		if (!theDir.exists()) {
-			boolean result = theDir.mkdir();
-			if (result) {
-				log("Players folder created.");
+				log("Files folder created.");
 			}
 		}
 

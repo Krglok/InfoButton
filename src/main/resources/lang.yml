@@ -9,9 +9,11 @@ exceptions:
     notEnoughArgs: "&cNot enough Arguments!"
     invalidPage: "&cInvalid Page number."
     notInfoButton: "&cTarget block is not an InfoButton."
+    invalidFile: "&cThe file could not be read."
 commands:
     addedButton: "&7InfoButton has been created at your target block."
     addPlayerCommand: "&7Added command '&a%C&7' to your target block."
     addConsoleCommand: "&7Added console command '&a%C&7' to your target block."
     addFile: "&7Added file '&a%F&7' to your target block."
     setPerm: "&7Set permission to '&a%P&7' for your target block."
+    wrongMaterial: "&cThis block is not aloud to be an InfoButton."

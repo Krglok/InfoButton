@@ -1,27 +1,37 @@
 package net.roguedraco.infobutton;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.roguedraco.infobutton.lang.Lang;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class InfoButton {
-	
+
 	private Location location;
-	
+
 	private boolean enabled = false;
 	private double price = 0.00;
 	private String permission = "infobutton.use";
-	
+
 	private Set<ButtonAction> actions = new HashSet<ButtonAction>();
 
 	public InfoButton(Block block) {
 		this.location = block.getLocation();
-		this.enabled = InfoButtonPlugin.getPlugin().getConfig().getBoolean("buttonDefaults.enabled");
-		this.price = InfoButtonPlugin.getPlugin().getConfig().getDouble("buttonDefaults.price");
-		this.permission = InfoButtonPlugin.getPlugin().getConfig().getString("buttonDefaults.permission");
+		this.enabled = InfoButtonPlugin.getPlugin().getConfig()
+				.getBoolean("buttonDefaults.enabled");
+		this.price = InfoButtonPlugin.getPlugin().getConfig()
+				.getDouble("buttonDefaults.price");
+		this.permission = InfoButtonPlugin.getPlugin().getConfig()
+				.getString("buttonDefaults.permission");
 	}
 
 	public Location getLocation() {
@@ -59,18 +69,44 @@ public class InfoButton {
 	public void setPermission(String permission) {
 		this.permission = permission;
 	}
-	
+
 	public void execute(Player player) {
-		
+		for (ButtonAction action : actions) {
+			ActionType type = action.getType();
+			if (type == ActionType.CONSOLE_COMMAND) {
+				Bukkit.getServer().dispatchCommand(
+						Bukkit.getServer().getConsoleSender(),
+						action.getValue());
+			}
+			if (type == ActionType.PLAYER_COMMAND) {
+				player.chat("/" + action.getValue());
+			}
+			if (type == ActionType.FILE_READ) {
+				try {
+					FileInputStream fstream = new FileInputStream(
+							InfoButtonPlugin.getPlugin().getDataFolder() + "/files/"+action.getValue()+".txt");
+					DataInputStream in = new DataInputStream(fstream);
+					BufferedReader br = new BufferedReader(
+							new InputStreamReader(in));
+					String strLine;
+					while ((strLine = br.readLine()) != null) {
+						player.sendMessage(Lang.parseColours(strLine));
+					}
+					in.close();
+				} catch (Exception e) {
+					player.sendMessage(Lang.get("exceptions.invalidFile"));
+				}
+			}
+		}
 	}
 
 	public void addAction(ActionType type, String value) {
 		ButtonAction action = new ButtonAction(type, value);
 		this.addAction(action);
 	}
-	
+
 	public void addAction(ButtonAction action) {
 		actions.add(action);
 	}
-	
+
 }
