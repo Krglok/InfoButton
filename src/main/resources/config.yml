@@ -2,3 +2,7 @@ debug: false
 useFancyConsole: true
 buttonBlocks:
  - 77
+buttonDefaults:
+  permission: infobutton.use
+  price: 0.00
+  enabled: true
