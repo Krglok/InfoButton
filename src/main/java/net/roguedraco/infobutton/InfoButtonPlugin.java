@@ -1,6 +1,7 @@
 package net.roguedraco.infobutton;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -89,6 +90,13 @@ public class InfoButtonPlugin extends JavaPlugin {
 		pm.registerEvents(RDEvents, this);
 		RDPlayers.loadAll();
 		InfoButtons.loadButtons();
+		
+		try {
+		    Metrics metrics = new Metrics(this);
+		    metrics.start();
+		} catch (IOException e) {
+		    // Failed to submit the stats :-(
+		}
 
 		log(Lang.get("plugin.enabled"));
 	}
