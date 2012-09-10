@@ -89,7 +89,7 @@ public class InfoButtonCommands {
 		}
 	}
 
-	@Command(aliases = { "addfile", "file", "af" }, usage = "", flags = "", desc = "Add a console command", help = "Adds a console command to the InfoButton you are looking at. (Hint: %player% is the player who pressed the button)", min = 1, max = -1)
+	@Command(aliases = { "addfile", "file", "af" }, usage = "", flags = "", desc = "Add a file to read", help = "Adds a file to the button, so it will read and parse it upon button press.", min = 1, max = -1)
 	@CommandPermissions("infobutton.admin.addfile")
 	public static void addfile(CommandContext args, CommandSender sender)
 			throws CommandException {
