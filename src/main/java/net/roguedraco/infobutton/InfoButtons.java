@@ -78,7 +78,7 @@ public class InfoButtons {
 	}
 
 	public static void addButton(InfoButton button) {
-		infoButtons.add(button); 
+		infoButtons.add(button);
 	}
 
 	public static void saveButtons() {
@@ -129,42 +129,48 @@ public class InfoButtons {
 		Iterator<String> worlds = conf.getKeys(false).iterator();
 		while (worlds.hasNext()) {
 			String worldName = worlds.next();
-			InfoButtonPlugin.debug("Loading Button World: "+worldName);
-			ConfigurationSection world = conf
-					.getConfigurationSection(worldName);
-			Iterator<String> buttons = world.getKeys(false).iterator();
-			while (buttons.hasNext()) {
-				String id = buttons.next();
-				InfoButtonPlugin.debug("Loading Button: "+id+" in world "+worldName);
-				Block block = Bukkit
-						.getServer()
-						.getWorld(worldName)
-						.getBlockAt(world.getInt(id + ".location.x"),
-								world.getInt(id + ".location.y"),
-								world.getInt(id + ".location.z"));
-				InfoButton ib = new InfoButton(block);
-				ib.setEnabled(world.getBoolean(id + ".enabled", true));
-				ib.setPermission(world.getString(id + ".permission", ""));
-				ib.setPrice(world.getDouble(id + ".price", 0.00));
+			InfoButtonPlugin.debug("Loading Button World: " + worldName);
+			if (Bukkit.getWorld(worldName) != null) {
+				ConfigurationSection world = conf
+						.getConfigurationSection(worldName);
+				Iterator<String> buttons = world.getKeys(false).iterator();
+				while (buttons.hasNext()) {
+					String id = buttons.next();
+					InfoButtonPlugin.debug("Loading Button: " + id
+							+ " in world " + worldName);
+					Block block = Bukkit
+							.getServer()
+							.getWorld(worldName)
+							.getBlockAt(world.getInt(id + ".location.x"),
+									world.getInt(id + ".location.y"),
+									world.getInt(id + ".location.z"));
+					InfoButton ib = new InfoButton(block);
+					ib.setEnabled(world.getBoolean(id + ".enabled", true));
+					ib.setPermission(world.getString(id + ".permission", ""));
+					ib.setPrice(world.getDouble(id + ".price", 0.00));
 
-				ConfigurationSection actionsSection = world
-						.getConfigurationSection(id + ".actions");
-				if (actionsSection != null) {
-					Iterator<String> actions = actionsSection.getKeys(false)
-							.iterator();
-					while (actions.hasNext()) {
-						String actionId = actions.next();
-						ActionType actionType = ActionType
-								.getType(actionsSection.getString(actionId
-										+ ".type"));
-						String actionValue = actionsSection.getString(actionId
-								+ ".val");
-						ButtonAction action = new ButtonAction(actionType,
-								actionValue);
-						ib.addAction(action);
+					ConfigurationSection actionsSection = world
+							.getConfigurationSection(id + ".actions");
+					if (actionsSection != null) {
+						Iterator<String> actions = actionsSection
+								.getKeys(false).iterator();
+						while (actions.hasNext()) {
+							String actionId = actions.next();
+							ActionType actionType = ActionType
+									.getType(actionsSection.getString(actionId
+											+ ".type"));
+							String actionValue = actionsSection
+									.getString(actionId + ".val");
+							ButtonAction action = new ButtonAction(actionType,
+									actionValue);
+							ib.addAction(action);
+						}
 					}
+					addButton(ib);
 				}
-				addButton(ib);
+			}
+			else {
+				InfoButtonPlugin.log(Level.WARNING, "Could not load buttons for world "+worldName);
 			}
 		}
 
