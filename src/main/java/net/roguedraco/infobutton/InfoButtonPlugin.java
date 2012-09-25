@@ -2,13 +2,14 @@ package net.roguedraco.infobutton;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import net.roguedraco.infobutton.Metrics.Graph;
 import net.roguedraco.infobutton.commands.GeneralCommands;
-import net.roguedraco.infobutton.lang.Lang;
 import net.roguedraco.infobutton.player.RDEvents;
 import net.roguedraco.infobutton.player.RDPlayers;
 
@@ -56,7 +57,6 @@ public class InfoButtonPlugin extends JavaPlugin {
 		InfoButtonPlugin.pluginVersion = this.getDescription().getVersion();
 
 		InfoButtonPlugin.lang = new Lang(this);
-		lang.setupLanguage();
 
 		if (getServer().getPluginManager().getPlugin("Vault") != null) {
 			setupPermissions();
@@ -93,6 +93,73 @@ public class InfoButtonPlugin extends JavaPlugin {
 		
 		try {
 		    Metrics metrics = new Metrics(this);
+		    
+		    Graph graph = metrics.createGraph("Number of Buttons");
+			graph.addPlotter(new Metrics.Plotter("Buttons") {
+
+				@Override
+				public int getValue() {
+					return InfoButtons.getList().size();
+				}
+
+			});
+			
+			Graph graph2 = metrics.createGraph("Button Types");
+
+		    graph2.addPlotter(new Metrics.Plotter("Read a file") {
+
+		            @Override
+		            public int getValue() {
+		            		List<InfoButton> list = InfoButtons.getList();
+		            		int count = 0;
+		            		for(InfoButton ib : list) {
+		            			for(ButtonAction at : ib.getActions()) {
+		            				if(at.getType().equals(ActionType.FILE_READ)) {
+		            					count++;
+		            				}
+		            			}
+		            		}
+		                    return count;
+		            }
+
+		    });
+		    
+		    graph2.addPlotter(new Metrics.Plotter("Player command") {
+
+	            @Override
+	            public int getValue() {
+	            	List<InfoButton> list = InfoButtons.getList();
+            		int count = 0;
+            		for(InfoButton ib : list) {
+            			for(ButtonAction at : ib.getActions()) {
+            				if(at.getType().equals(ActionType.PLAYER_COMMAND)) {
+            					count++;
+            				}
+            			}
+            		}
+                    return count;
+	            }
+
+		    });
+		    
+		    graph2.addPlotter(new Metrics.Plotter("Console command") {
+
+	            @Override
+	            public int getValue() {
+	            	List<InfoButton> list = InfoButtons.getList();
+            		int count = 0;
+            		for(InfoButton ib : list) {
+            			for(ButtonAction at : ib.getActions()) {
+            				if(at.getType().equals(ActionType.CONSOLE_COMMAND)) {
+            					count++;
+            				}
+            			}
+            		}
+                    return count;
+	            }
+
+		    });
+		    
 		    metrics.start();
 		} catch (IOException e) {
 		    // Failed to submit the stats :-(
@@ -104,7 +171,7 @@ public class InfoButtonPlugin extends JavaPlugin {
 	public void onDisable() {
 		RDPlayers.saveAll();
 		InfoButtons.saveButtons();
-		lang.saveLanguage();
+		lang.saveLang();
 
 		log(Lang.get("plugin.disabled"));
 	}

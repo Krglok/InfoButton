@@ -3,7 +3,7 @@ package net.roguedraco.infobutton.commands;
 import net.roguedraco.infobutton.ActionType;
 import net.roguedraco.infobutton.InfoButton;
 import net.roguedraco.infobutton.InfoButtons;
-import net.roguedraco.infobutton.lang.Lang;
+import net.roguedraco.infobutton.Lang;
 
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;

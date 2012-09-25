@@ -2,9 +2,11 @@ package net.roguedraco.infobutton;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -22,6 +24,16 @@ public class InfoButtons {
 
 	private static File confFile = null;
 	private static FileConfiguration conf = null;
+	
+	public static List<InfoButton> getList() {
+		List<InfoButton> entries = new ArrayList<InfoButton>();
+		Iterator<InfoButton> it = infoButtons.iterator();
+		while(it.hasNext()) {
+			InfoButton ib = it.next();
+			entries.add(ib);
+		}
+		return entries;
+	}
 
 	public static boolean isButton(Block block) {
 

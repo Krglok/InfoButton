@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.roguedraco.infobutton.lang.Lang;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
