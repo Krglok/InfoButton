@@ -129,11 +129,13 @@ public class InfoButtons {
 		Iterator<String> worlds = conf.getKeys(false).iterator();
 		while (worlds.hasNext()) {
 			String worldName = worlds.next();
+			InfoButtonPlugin.debug("Loading Button World: "+worldName);
 			ConfigurationSection world = conf
 					.getConfigurationSection(worldName);
 			Iterator<String> buttons = world.getKeys(false).iterator();
 			while (buttons.hasNext()) {
 				String id = buttons.next();
+				InfoButtonPlugin.debug("Loading Button: "+id+" in world "+worldName);
 				Block block = Bukkit
 						.getServer()
 						.getWorld(worldName)
