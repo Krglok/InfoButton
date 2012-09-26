@@ -94,10 +94,10 @@ public class InfoButton {
 			if (type == ActionType.CONSOLE_COMMAND) {
 				Bukkit.getServer().dispatchCommand(
 						Bukkit.getServer().getConsoleSender(),
-						action.getValue());
+						action.getValue().replaceAll("%player%", player.getName()));
 			}
 			if (type == ActionType.PLAYER_COMMAND) {
-				player.chat("/" + action.getValue());
+				player.chat("/" + action.getValue().replaceAll("%player%", player.getName()));
 			}
 			if (type == ActionType.FILE_READ) {
 				try {
@@ -109,7 +109,7 @@ public class InfoButton {
 							new InputStreamReader(in));
 					String strLine;
 					while ((strLine = br.readLine()) != null) {
-						player.sendMessage(Lang.parseColours(strLine));
+						player.sendMessage(Lang.parseColours(strLine).replaceAll("%player%", player.getName()));
 					}
 					in.close();
 				} catch (Exception e) {
