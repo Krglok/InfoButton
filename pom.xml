@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.roguedraco</groupId>
 	<artifactId>InfoButton</artifactId>
-	<version>2.0-R1</version>
+	<version>2.1-R1</version>
 	<name>InfoButton</name>
 	<url>http://dev.bukkit.org/server-mods/infobutton/</url>
 	<description>Bukkit Plugin - Button-ed Information or Commands</description>
