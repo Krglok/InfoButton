@@ -91,7 +91,7 @@ public class InfoButton {
 		z = this.location.getBlockZ();
 		boolean confirmed = false;
 		
-		if(rdp.getInt("tmp.confirm."+x+"-"+y+"-"+z) == 1) {
+		if(rdp.getInt("tmp.confirm."+x+"-"+y+"-"+z) == 1l) {
 			confirmed = true;
 			rdp.set("tmp.confirm."+x+"-"+y+"-"+z,null);
 		}

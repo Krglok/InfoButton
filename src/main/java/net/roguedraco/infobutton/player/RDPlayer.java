@@ -7,17 +7,19 @@ package net.roguedraco.infobutton.player;
 //import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 //import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 public class RDPlayer {
 
-	//private String name;
+	private String name;
 
 	//private File playerFile = null;
 	private FileConfiguration player = null;
 
 	public RDPlayer(String name) {
-		//this.name = name;
+		this.name = name;
 		//load();
+		this.player = new YamlConfiguration();
 	}
 	
 	public boolean getBoolean(String path) {
