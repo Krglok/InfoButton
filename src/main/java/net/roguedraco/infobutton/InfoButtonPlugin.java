@@ -164,7 +164,7 @@ public class InfoButtonPlugin extends JavaPlugin {
 		} catch (IOException e) {
 		    // Failed to submit the stats :-(
 		}
-
+		Bukkit.getServer()
 		log(Lang.get("plugin.enabled"));
 	}
 

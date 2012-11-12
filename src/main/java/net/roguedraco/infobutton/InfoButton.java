@@ -8,6 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+import net.roguedraco.infobutton.player.RDPlayer;
+import net.roguedraco.infobutton.player.RDPlayers;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -80,13 +83,32 @@ public class InfoButton {
 				return;
 			}
 		}
-		if (price > 0) {
-			if(InfoButtonPlugin.economy.getBalance(player.getName()) >= price) {
-				InfoButtonPlugin.economy.withdrawPlayer(player.getName(), price);
+		
+		RDPlayer rdp = RDPlayers.getPlayer(player.getName());
+		int x,y,z = 0;
+		x = this.location.getBlockX();
+		y = this.location.getBlockY();
+		z = this.location.getBlockZ();
+		boolean confirmed = false;
+		
+		if(rdp.getInt("tmp.confirm."+x+"-"+y+"-"+z) == 1) {
+			confirmed = true;
+			rdp.set("tmp.confirm."+x+"-"+y+"-"+z,null);
+		}
+		
+		if (price > 0) {			
+			if(confirmed == true) {
+				if(InfoButtonPlugin.economy.getBalance(player.getName()) >= price) {
+					InfoButtonPlugin.economy.withdrawPlayer(player.getName(), price);
+				}
+				else {
+					player.sendMessage(Lang.get("exceptions.notEnoughFunds"));
+					return;
+				}
 			}
 			else {
-				player.sendMessage(Lang.get("exceptions.notEnoughFunds"));
-				return;
+				rdp.set("tmp.confirm."+x+"-"+y+"-"+z,"1");
+				player.sendMessage(Lang.get("warning.confirmPaidButton"));
 			}
 		}
 		for (ButtonAction action : actions) {
