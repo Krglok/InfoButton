@@ -86,7 +86,7 @@ public class InfoButton {
 	
 		
 		if (price > 0) {
-			RDPlayer rdp = RDPlayers.getPlayer(player.getName());
+			/*RDPlayer rdp = RDPlayers.getPlayer(player.getName());
 			int x,y,z = 0;
 			x = this.location.getBlockX();
 			y = this.location.getBlockY();
@@ -98,7 +98,7 @@ public class InfoButton {
 				rdp.set("tmp.confirm."+x+"-"+y+"-"+z,null);
 			}
 			
-			if(confirmed == true) {
+			if(confirmed == true) {*/
 				if(InfoButtonPlugin.economy.getBalance(player.getName()) >= price) {
 					InfoButtonPlugin.economy.withdrawPlayer(player.getName(), price);
 				}
@@ -106,11 +106,13 @@ public class InfoButton {
 					player.sendMessage(Lang.get("exceptions.notEnoughFunds"));
 					return;
 				}
-			}
+			/*}
 			else {
+			
+				//long militime = new Date().getTime()
 				rdp.set("tmp.confirm."+x+"-"+y+"-"+z,"1");
 				player.sendMessage(Lang.get("warning.confirmPaidButton"));
-			}
+			}*/
 		}
 		for (ButtonAction action : actions) {
 			ActionType type = action.getType();
