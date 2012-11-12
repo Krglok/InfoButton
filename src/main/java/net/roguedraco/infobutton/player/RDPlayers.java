@@ -58,7 +58,7 @@ public class RDPlayers {
 		//		return true;
 		//	}
 		//}
-		return false;
+		return true;
 	}
 	
 	public static void playerJoin(final PlayerJoinEvent event) {

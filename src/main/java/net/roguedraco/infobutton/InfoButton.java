@@ -83,20 +83,21 @@ public class InfoButton {
 				return;
 			}
 		}
+	
 		
-		RDPlayer rdp = RDPlayers.getPlayer(player.getName());
-		int x,y,z = 0;
-		x = this.location.getBlockX();
-		y = this.location.getBlockY();
-		z = this.location.getBlockZ();
-		boolean confirmed = false;
-		
-		if(rdp.getInt("tmp.confirm."+x+"-"+y+"-"+z) == 1l) {
-			confirmed = true;
-			rdp.set("tmp.confirm."+x+"-"+y+"-"+z,null);
-		}
-		
-		if (price > 0) {			
+		if (price > 0) {
+			RDPlayer rdp = RDPlayers.getPlayer(player.getName());
+			int x,y,z = 0;
+			x = this.location.getBlockX();
+			y = this.location.getBlockY();
+			z = this.location.getBlockZ();
+			boolean confirmed = false;
+			
+			if(rdp.getInt("tmp.confirm."+x+"-"+y+"-"+z) == 1) {
+				confirmed = true;
+				rdp.set("tmp.confirm."+x+"-"+y+"-"+z,null);
+			}
+			
 			if(confirmed == true) {
 				if(InfoButtonPlugin.economy.getBalance(player.getName()) >= price) {
 					InfoButtonPlugin.economy.withdrawPlayer(player.getName(), price);
