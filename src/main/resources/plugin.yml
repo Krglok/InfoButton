@@ -2,7 +2,9 @@ name: ${project.name}
 main: net.roguedraco.infobutton.InfoButtonPlugin
 version: ${project.version}
 author: TruDan
+load: POSTWORLD
 depends: [Vault]
+softdepend: [Multiverse-Core]
 dev-url: ${project.url}
 commands:
     ib:
