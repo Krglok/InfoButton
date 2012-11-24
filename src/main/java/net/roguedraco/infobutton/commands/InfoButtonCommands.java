@@ -140,11 +140,23 @@ public class InfoButtonCommands {
 		}
 	}
 	
+	@Command(aliases = { "delete", "del", "d" }, usage = "", flags = "", desc = "Deletes an InfoButton", help = "Deletes the infobutton you are looking at", min = 0, max = 0)
+	@CommandPermissions("infobutton.admin.delete")
+	public static void delete(CommandContext args, CommandSender sender)
+			throws CommandException {
+		Player player = (Player) sender;
+		Block block = player.getTargetBlock(null, 200);
+		if (InfoButtons.isButton(block)) {
+			InfoButtons.deleteButton(block);
+			sender.sendMessage(Lang.get("commands.deletedButton"));
+		} else {
+			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+		}
+	}
 	@Command(aliases = { "save", "s" }, usage = "", flags = "", desc = "Save all buttons", help = "Saves all the buttons", min = 0, max = 0)
 	@CommandPermissions("infobutton.admin.save")
 	public static void save(CommandContext args, CommandSender sender)
 			throws CommandException {
 		InfoButtons.saveButtons();
-		
 	}
 }

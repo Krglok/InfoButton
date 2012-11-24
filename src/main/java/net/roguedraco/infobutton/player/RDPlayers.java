@@ -1,6 +1,6 @@
 package net.roguedraco.infobutton.player;
 
-//import java.io.File;
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,17 +18,17 @@ public class RDPlayers {
 	private static Map<String,RDPlayer> players = new HashMap<String,RDPlayer>();
 
 	public static void loadAll() {
-		//Collection<RDPlayer> col = RDPlayers.players.values();
-		//for(RDPlayer rdp : col) {
-			//rdp.load();
-		//}
+		Collection<RDPlayer> col = RDPlayers.players.values();
+		for(RDPlayer rdp : col) {
+			rdp.load();
+		}
 	}
 
 	public static void saveAll() {
-		//Collection<RDPlayer> col = RDPlayers.players.values();
-		//for(RDPlayer rdp : col) {
-			//rdp.save();
-		//}
+		Collection<RDPlayer> col = RDPlayers.players.values();
+		for(RDPlayer rdp : col) {
+			rdp.save();
+		}
 	}
 	
 	public static RDPlayer getPlayer(String name) {
@@ -82,13 +82,13 @@ public class RDPlayers {
 		if(RDPlayers.check(name) == true) {
 			// Player is existing, load data
 			RDPlayer pd = new RDPlayer(name);
-			//pd.load();
+			pd.load();
 			RDPlayers.players.put(name,pd);
 		}
 		else {
 			// Player is new, create data
 			RDPlayer pd = new RDPlayer(name);
-			//pd.save();
+			pd.save();
 			RDPlayers.players.put(name, pd);
 		}
 	}

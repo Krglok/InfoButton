@@ -78,13 +78,18 @@ public class InfoButtons {
 	public static void deleteButton(Block block) {
 		if (InfoButtonPlugin.getPlugin().getConfig()
 				.getIntegerList("buttonBlocks").contains(block.getTypeId())) {
+			Set<InfoButton> removeButtons = new HashSet<InfoButton>();
 			for (InfoButton button : infoButtons) {
 				Location loc = button.getLocation();
 				Location bloc = block.getLocation();
 				if (loc.getX() == bloc.getX() && loc.getY() == bloc.getY()
 						&& loc.getZ() == bloc.getZ()) {
-					infoButtons.remove(button);
+					removeButtons.add(button);
 				}
+			}
+			
+			for( InfoButton button : removeButtons) {
+				infoButtons.remove(button);
 			}
 		}
 	}

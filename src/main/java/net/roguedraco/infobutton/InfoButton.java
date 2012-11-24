@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 
 import net.roguedraco.infobutton.player.RDPlayer;
 import net.roguedraco.infobutton.player.RDPlayers;
@@ -73,72 +73,75 @@ public class InfoButton {
 	}
 
 	public void execute(Player player) {
-		if(enabled == false) {
+		if (enabled == false) {
 			player.sendMessage(Lang.get("exceptions.notEnabled"));
 			return;
 		}
-		if(permission != null && permission != "") {
-			if(!InfoButtonPlugin.permission.playerHas(player, permission)) {
+
+		if (permission != null && permission != "") {
+			if (!InfoButtonPlugin.permission.playerHas(player, permission)) {
 				player.sendMessage(Lang.get("exceptions.noPermission"));
 				return;
 			}
 		}
-	
-		
+
 		if (price > 0) {
-			/*RDPlayer rdp = RDPlayers.getPlayer(player.getName());
-			int x,y,z = 0;
-			x = this.location.getBlockX();
-			y = this.location.getBlockY();
-			z = this.location.getBlockZ();
-			boolean confirmed = false;
-			
-			if(rdp.getInt("tmp.confirm."+x+"-"+y+"-"+z) == 1) {
-				confirmed = true;
-				rdp.set("tmp.confirm."+x+"-"+y+"-"+z,null);
-			}
-			
-			if(confirmed == true) {*/
-				if(InfoButtonPlugin.economy.getBalance(player.getName()) >= price) {
-					InfoButtonPlugin.economy.withdrawPlayer(player.getName(), price);
+			if (InfoButtonPlugin.economy.getBalance(player.getName()) >= price) {
+				RDPlayer rdp = RDPlayers.getPlayer(player.getName());
+
+				int x, y, z = 0;
+				x = this.location.getBlockX();
+				y = this.location.getBlockY();
+				z = this.location.getBlockZ();
+				long time = (new Date().getTime()) * 1000;
+				long confirmed = rdp.getLong("confirmed." + x + "-" + y + "-"
+						+ z);
+
+				if (confirmed <= time) {
+					rdp.set("confirmed." + x + "-" + y + "-" + z, null);
+					InfoButtonPlugin.economy.withdrawPlayer(player.getName(),
+							price);
+					player.sendMessage(Lang.get("other.paidForButton"));
+				} else {
+					rdp.set("confirmed." + x + "-" + y + "-" + z,
+							time
+									+ InfoButtonPlugin.getPlugin().getConfig()
+											.getInt("buttonTimeout"));
+					player.sendMessage(Lang.get("other.confirmTransaction"));
 				}
-				else {
-					player.sendMessage(Lang.get("exceptions.notEnoughFunds"));
-					return;
+			}
+
+			for (ButtonAction action : actions) {
+				ActionType type = action.getType();
+				if (type == ActionType.CONSOLE_COMMAND) {
+					Bukkit.getServer().dispatchCommand(
+							Bukkit.getServer().getConsoleSender(),
+							action.getValue().replaceAll("%player%",
+									player.getName()));
 				}
-			/*}
-			else {
-			
-				//long militime = new Date().getTime()
-				rdp.set("tmp.confirm."+x+"-"+y+"-"+z,"1");
-				player.sendMessage(Lang.get("warning.confirmPaidButton"));
-			}*/
-		}
-		for (ButtonAction action : actions) {
-			ActionType type = action.getType();
-			if (type == ActionType.CONSOLE_COMMAND) {
-				Bukkit.getServer().dispatchCommand(
-						Bukkit.getServer().getConsoleSender(),
-						action.getValue().replaceAll("%player%", player.getName()));
-			}
-			if (type == ActionType.PLAYER_COMMAND) {
-				player.chat("/" + action.getValue().replaceAll("%player%", player.getName()));
-			}
-			if (type == ActionType.FILE_READ) {
-				try {
-					FileInputStream fstream = new FileInputStream(
-							InfoButtonPlugin.getPlugin().getDataFolder()
-									+ "/files/" + action.getValue() + ".txt");
-					DataInputStream in = new DataInputStream(fstream);
-					BufferedReader br = new BufferedReader(
-							new InputStreamReader(in));
-					String strLine;
-					while ((strLine = br.readLine()) != null) {
-						player.sendMessage(Lang.parseColours(strLine).replaceAll("%player%", player.getName()));
+				if (type == ActionType.PLAYER_COMMAND) {
+					player.chat("/"
+							+ action.getValue().replaceAll("%player%",
+									player.getName()));
+				}
+				if (type == ActionType.FILE_READ) {
+					try {
+						FileInputStream fstream = new FileInputStream(
+								InfoButtonPlugin.getPlugin().getDataFolder()
+										+ "/files/" + action.getValue()
+										+ ".txt");
+						DataInputStream in = new DataInputStream(fstream);
+						BufferedReader br = new BufferedReader(
+								new InputStreamReader(in));
+						String strLine;
+						while ((strLine = br.readLine()) != null) {
+							player.sendMessage(Lang.parseColours(strLine)
+									.replaceAll("%player%", player.getName()));
+						}
+						in.close();
+					} catch (Exception e) {
+						player.sendMessage(Lang.get("exceptions.invalidFile"));
 					}
-					in.close();
-				} catch (Exception e) {
-					player.sendMessage(Lang.get("exceptions.invalidFile"));
 				}
 			}
 		}
