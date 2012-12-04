@@ -110,38 +110,37 @@ public class InfoButton {
 					player.sendMessage(Lang.get("other.confirmTransaction"));
 				}
 			}
+		}
 
-			for (ButtonAction action : actions) {
-				ActionType type = action.getType();
-				if (type == ActionType.CONSOLE_COMMAND) {
-					Bukkit.getServer().dispatchCommand(
-							Bukkit.getServer().getConsoleSender(),
-							action.getValue().replaceAll("%player%",
-									player.getName()));
-				}
-				if (type == ActionType.PLAYER_COMMAND) {
-					player.chat("/"
-							+ action.getValue().replaceAll("%player%",
-									player.getName()));
-				}
-				if (type == ActionType.FILE_READ) {
-					try {
-						FileInputStream fstream = new FileInputStream(
-								InfoButtonPlugin.getPlugin().getDataFolder()
-										+ "/files/" + action.getValue()
-										+ ".txt");
-						DataInputStream in = new DataInputStream(fstream);
-						BufferedReader br = new BufferedReader(
-								new InputStreamReader(in));
-						String strLine;
-						while ((strLine = br.readLine()) != null) {
-							player.sendMessage(Lang.parseColours(strLine)
-									.replaceAll("%player%", player.getName()));
-						}
-						in.close();
-					} catch (Exception e) {
-						player.sendMessage(Lang.get("exceptions.invalidFile"));
+		for (ButtonAction action : actions) {
+			ActionType type = action.getType();
+			if (type == ActionType.CONSOLE_COMMAND) {
+				Bukkit.getServer().dispatchCommand(
+						Bukkit.getServer().getConsoleSender(),
+						action.getValue().replaceAll("%player%",
+								player.getName()));
+			}
+			if (type == ActionType.PLAYER_COMMAND) {
+				player.chat("/"
+						+ action.getValue().replaceAll("%player%",
+								player.getName()));
+			}
+			if (type == ActionType.FILE_READ) {
+				try {
+					FileInputStream fstream = new FileInputStream(
+							InfoButtonPlugin.getPlugin().getDataFolder()
+									+ "/files/" + action.getValue() + ".txt");
+					DataInputStream in = new DataInputStream(fstream);
+					BufferedReader br = new BufferedReader(
+							new InputStreamReader(in));
+					String strLine;
+					while ((strLine = br.readLine()) != null) {
+						player.sendMessage(Lang.parseColours(strLine)
+								.replaceAll("%player%", player.getName()));
 					}
+					in.close();
+				} catch (Exception e) {
+					player.sendMessage(Lang.get("exceptions.invalidFile"));
 				}
 			}
 		}
