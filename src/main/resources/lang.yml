@@ -22,9 +22,6 @@ commands:
     enabled: "&7Button enabled."
     disabled: "&7Button disabled."
     setPrice: "&7Price set to &a%P&7."
-<<<<<<< HEAD
     deletedButton: "&7Button has been deleted."
-=======
 warning:
     confirmPaidButton: "&7This will cost you &a&P&7, Press again to confirm."
->>>>>>> refs/remotes/origin/master

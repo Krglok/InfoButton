@@ -2,8 +2,8 @@ package net.roguedraco.infobutton.commands;
 
 import net.roguedraco.infobutton.ActionType;
 import net.roguedraco.infobutton.InfoButton;
+import net.roguedraco.infobutton.InfoButtonPlugin;
 import net.roguedraco.infobutton.InfoButtons;
-import net.roguedraco.infobutton.Lang;
 
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -25,10 +25,10 @@ public class InfoButtonCommands {
 			InfoButton ib = new InfoButton(block);
 			InfoButtons.addButton(ib);
 			InfoButtons.saveButtons();
-			sender.sendMessage(Lang.get("commands.addedButton"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("commands.addedButton"));
 		}
 		else {
-			sender.sendMessage(Lang.get("commands.wrongMaterial"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("commands.wrongMaterial"));
 		}
 	}
 	
@@ -41,9 +41,9 @@ public class InfoButtonCommands {
 		if (InfoButtons.isButton(block)) {
 			InfoButtons.getButton(block).setEnabled(true);
 			InfoButtons.saveButtons();
-			sender.sendMessage(Lang.get("commands.enabled"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("commands.enabled"));
 		} else {
-			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("exceptions.notInfoButton"));
 		}
 	}
 	
@@ -56,9 +56,9 @@ public class InfoButtonCommands {
 		if (InfoButtons.isButton(block)) {
 			InfoButtons.getButton(block).setEnabled(false);
 			InfoButtons.saveButtons();
-			sender.sendMessage(Lang.get("commands.disabled"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("commands.disabled"));
 		} else {
-			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("exceptions.notInfoButton"));
 		}
 	}
 
@@ -72,9 +72,9 @@ public class InfoButtonCommands {
 			InfoButtons.getButton(block).addAction(ActionType.PLAYER_COMMAND,
 					args.getJoinedStrings(0));
 			InfoButtons.saveButtons();
-			sender.sendMessage(Lang.get("commands.addPlayerCommand").replaceAll("%C",args.getJoinedStrings(0)));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("commands.addPlayerCommand").replaceAll("%C",args.getJoinedStrings(0)));
 		} else {
-			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("exceptions.notInfoButton"));
 		}
 	}
 
@@ -88,9 +88,9 @@ public class InfoButtonCommands {
 			InfoButtons.getButton(block).addAction(ActionType.CONSOLE_COMMAND,
 					args.getJoinedStrings(0));
 			InfoButtons.saveButtons();
-			sender.sendMessage(Lang.get("commands.addConsoleCommand").replaceAll("%C",args.getJoinedStrings(0)));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("commands.addConsoleCommand").replaceAll("%C",args.getJoinedStrings(0)));
 		} else {
-			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("exceptions.notInfoButton"));
 		}
 	}
 
@@ -104,9 +104,9 @@ public class InfoButtonCommands {
 			InfoButtons.getButton(block).addAction(ActionType.FILE_READ,
 					args.getJoinedStrings(0));
 			InfoButtons.saveButtons();
-			sender.sendMessage(Lang.get("commands.addFile").replaceAll("%F",args.getJoinedStrings(0)));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("commands.addFile").replaceAll("%F",args.getJoinedStrings(0)));
 		} else {
-			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("exceptions.notInfoButton"));
 		}
 	}
 	
@@ -119,9 +119,9 @@ public class InfoButtonCommands {
 		if (InfoButtons.isButton(block)) {
 			InfoButtons.getButton(block).setPermission(args.getString(0));
 			InfoButtons.saveButtons();
-			sender.sendMessage(Lang.get("commands.setPerm").replaceAll("%P",args.getString(0)));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("commands.setPerm").replaceAll("%P",args.getString(0)));
 		} else {
-			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("exceptions.notInfoButton"));
 		}
 	}
 	
@@ -134,9 +134,9 @@ public class InfoButtonCommands {
 		if (InfoButtons.isButton(block)) {
 			InfoButtons.getButton(block).setPrice(args.getDouble(0));
 			InfoButtons.saveButtons();
-			sender.sendMessage(Lang.get("commands.setPrice").replaceAll("%P",args.getString(0)));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("commands.setPrice").replaceAll("%P",args.getString(0)));
 		} else {
-			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("exceptions.notInfoButton"));
 		}
 	}
 	
@@ -148,9 +148,9 @@ public class InfoButtonCommands {
 		Block block = player.getTargetBlock(null, 200);
 		if (InfoButtons.isButton(block)) {
 			InfoButtons.deleteButton(block);
-			sender.sendMessage(Lang.get("commands.deletedButton"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("commands.deletedButton"));
 		} else {
-			sender.sendMessage(Lang.get("exceptions.notInfoButton"));
+			sender.sendMessage(InfoButtonPlugin.getLang().get("exceptions.notInfoButton"));
 		}
 	}
 	@Command(aliases = { "save", "s" }, usage = "", flags = "", desc = "Save all buttons", help = "Saves all the buttons", min = 0, max = 0)

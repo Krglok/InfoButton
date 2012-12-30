@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.downwithdestruction.core.lang.Lang;
 import net.roguedraco.infobutton.player.RDPlayer;
 import net.roguedraco.infobutton.player.RDPlayers;
 
@@ -74,13 +75,13 @@ public class InfoButton {
 
 	public void execute(Player player) {
 		if (enabled == false) {
-			player.sendMessage(Lang.get("exceptions.notEnabled"));
+			player.sendMessage(InfoButtonPlugin.getLang().get("exceptions.notEnabled"));
 			return;
 		}
 
 		if (permission != null && permission != "") {
 			if (!InfoButtonPlugin.permission.playerHas(player, permission)) {
-				player.sendMessage(Lang.get("exceptions.noPermission"));
+				player.sendMessage(InfoButtonPlugin.getLang().get("exceptions.noPermission"));
 				return;
 			}
 		}
@@ -101,13 +102,13 @@ public class InfoButton {
 					rdp.set("confirmed." + x + "-" + y + "-" + z, null);
 					InfoButtonPlugin.economy.withdrawPlayer(player.getName(),
 							price);
-					player.sendMessage(Lang.get("other.paidForButton"));
+					player.sendMessage(InfoButtonPlugin.getLang().get("other.paidForButton"));
 				} else {
 					rdp.set("confirmed." + x + "-" + y + "-" + z,
 							time
 									+ InfoButtonPlugin.getPlugin().getConfig()
 											.getInt("buttonTimeout"));
-					player.sendMessage(Lang.get("other.confirmTransaction"));
+					player.sendMessage(InfoButtonPlugin.getLang().get("other.confirmTransaction"));
 				}
 			}
 		}
@@ -135,12 +136,13 @@ public class InfoButton {
 							new InputStreamReader(in));
 					String strLine;
 					while ((strLine = br.readLine()) != null) {
+						InfoButtonPlugin.getLang();
 						player.sendMessage(Lang.parseColours(strLine)
 								.replaceAll("%player%", player.getName()));
 					}
 					in.close();
 				} catch (Exception e) {
-					player.sendMessage(Lang.get("exceptions.invalidFile"));
+					player.sendMessage(InfoButtonPlugin.getLang().get("exceptions.invalidFile"));
 				}
 			}
 		}

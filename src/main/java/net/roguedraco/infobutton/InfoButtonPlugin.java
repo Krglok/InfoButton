@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.downwithdestruction.core.lang.Lang;
+import net.downwithdestruction.core.util.Metrics;
+import net.downwithdestruction.core.util.Metrics.Graph;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-import net.roguedraco.infobutton.Metrics.Graph;
 import net.roguedraco.infobutton.commands.GeneralCommands;
 import net.roguedraco.infobutton.player.RDEvents;
 import net.roguedraco.infobutton.player.RDPlayers;
@@ -44,7 +46,7 @@ public class InfoButtonPlugin extends JavaPlugin {
 	public static Permission permission = null;
 	public static Economy economy = null;
 
-	public static Lang lang;
+	private static Lang lang;
 
 	public void onEnable() {
 
@@ -164,7 +166,7 @@ public class InfoButtonPlugin extends JavaPlugin {
 		} catch (IOException e) {
 		    // Failed to submit the stats :-(
 		}
-		log(Lang.get("plugin.enabled"));
+		log(lang.get("plugin.enabled"));
 	}
 
 	public void onDisable() {
@@ -172,11 +174,15 @@ public class InfoButtonPlugin extends JavaPlugin {
 		InfoButtons.saveButtons();
 		lang.saveLang();
 
-		log(Lang.get("plugin.disabled"));
+		log(lang.get("plugin.disabled"));
 	}
 
 	public static JavaPlugin getPlugin() {
 		return plugin;
+	}
+	
+	public static Lang getLang() {
+		return lang;
 	}
 
 	private boolean setupPermissions() {
@@ -220,7 +226,7 @@ public class InfoButtonPlugin extends JavaPlugin {
 			this.commands.execute(cmd.getName(), args, sender, sender);
 		} catch (CommandPermissionsException e) {
 			sender.sendMessage(ChatColor.RED
-					+ Lang.get("exceptions.noPermission"));
+					+ lang.get("exceptions.noPermission"));
 		} catch (MissingNestedCommandException e) {
 			sender.sendMessage(ChatColor.RED + e.getUsage());
 		} catch (CommandUsageException e) {
@@ -229,10 +235,10 @@ public class InfoButtonPlugin extends JavaPlugin {
 		} catch (WrappedCommandException e) {
 			if (e.getCause() instanceof NumberFormatException) {
 				sender.sendMessage(ChatColor.RED
-						+ Lang.get("exceptions.numExpected"));
+						+ lang.get("exceptions.numExpected"));
 			} else {
 				sender.sendMessage(ChatColor.RED
-						+ Lang.get("exceptions.errorOccurred"));
+						+ lang.get("exceptions.errorOccurred"));
 				e.printStackTrace();
 			}
 		} catch (CommandException e) {
