@@ -136,45 +136,12 @@ public class InfoButton {
 							new InputStreamReader(in));
 					String strLine;
 					while ((strLine = br.readLine()) != null) {
-<<<<<<< HEAD
-						InfoButtonPlugin.getLang();
-=======
->>>>>>> branch 'master' of https://github.com/SpyroDev/InfoButton.git
-						player.sendMessage(Lang.parseColours(strLine)
-								.replaceAll("%player%", player.getName()));
-		for (ButtonAction action : actions) {
-			ActionType type = action.getType();
-			if (type == ActionType.CONSOLE_COMMAND) {
-				Bukkit.getServer().dispatchCommand(
-						Bukkit.getServer().getConsoleSender(),
-						action.getValue().replaceAll("%player%",
-								player.getName()));
-			}
-			if (type == ActionType.PLAYER_COMMAND) {
-				player.chat("/"
-						+ action.getValue().replaceAll("%player%",
-								player.getName()));
-			}
-			if (type == ActionType.FILE_READ) {
-				try {
-					FileInputStream fstream = new FileInputStream(
-							InfoButtonPlugin.getPlugin().getDataFolder()
-									+ "/files/" + action.getValue() + ".txt");
-					DataInputStream in = new DataInputStream(fstream);
-					BufferedReader br = new BufferedReader(
-							new InputStreamReader(in));
-					String strLine;
-					while ((strLine = br.readLine()) != null) {
 						player.sendMessage(Lang.parseColours(strLine)
 								.replaceAll("%player%", player.getName()));
 					}
 					in.close();
 				} catch (Exception e) {
-<<<<<<< HEAD
 					player.sendMessage(InfoButtonPlugin.getLang().get("exceptions.invalidFile"));
-=======
-					player.sendMessage(Lang.get("exceptions.invalidFile"));
->>>>>>> branch 'master' of https://github.com/SpyroDev/InfoButton.git
 				}
 			}
 		}
